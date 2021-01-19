@@ -1,4 +1,4 @@
-import React, {useState, useContext} from 'react';
+import React, {useState, useContext, useEffect} from 'react';
 import {
     View,
     Text,
@@ -15,6 +15,10 @@ import {
   import {AuthContext} from '../components/context';
   import Users from '../model/Users';
   import {useTheme} from 'react-native-paper';
+  import db from "@react-native-firebase/database";
+  import auth from '@react-native-firebase/auth';
+  
+
 
 const SignIn = ({navigation}) => {
     const {colors} = useTheme();
@@ -73,29 +77,51 @@ const SignIn = ({navigation}) => {
             secureTextEntry: !data.secureTextEntry
         });
     };
+// (userName, password) 
+    const loginHandle = ()=> {
+        //alert('hello')
+    auth().signInWithEmailAndPassword(data.username, data.password)
+  .then((result) => {
+    alert('login sucessfully');
+    signIn(data.username, data.password)
+    
+  })
+  .catch(error => {
+    if (error.code === 'auth/email-already-in-use') {
+      alert('That email address is already in use!');
+    }
 
-    const loginHandle = (userName, password) => {
-        const foundUser = Users.filter(item => {
-            return userName === item.username && password === item.password;
-        });
+    if (error.code === 'auth/invalid-email') {
+      alert('That email address is invalid!');
+    }
 
-        if(data.username.length === 0 || data.password.length === 0 ) {
-            Alert.alert('Wrong Input', 'Username or password field cannot be empty.', [
-                {text: 'Okay'}
-            ]);
+    console.error(error);
+  });
+        // const foundUser = Users.filter(item => {
+        //     return userName === item.username && password === item.password;
+        // });
 
-            return;
-        }
+        // console.log('username', userName, 'password', password)
+        // db().ref('/').child('users').push(userName)
+
+        // if(data.username.length === 0 || data.password.length === 0 ) {
+        //     Alert.alert('Wrong Input', 'Username or password field cannot be empty.', [
+        //         {text: 'Okay'}
+        //     ]);
+
+        //     return;
+        // }
         
 
-        if(foundUser.length === 0) {
-            Alert.alert('Invalid User', 'Username or password is incorrect', [
-                {text: 'Okay'}
-            ]);
+        // if(foundUser.length === 0) {
+        //     Alert.alert('Invalid User', 'Username or password is incorrect', [
+        //         {text: 'Okay'}
+        //     ]);
 
-            return;
-        }
-        signIn(foundUser)
+        //     return;
+        // }
+       
+        //signIn(foundUser)
 };
 
 const handleValidUser = (val) => {
@@ -142,7 +168,7 @@ const handleValidPassword = () => {
             >
                 <Text style={[styles.text_footer, {color: colors.text}]}> Email </Text>
                 <View style={styles.action}>
-                    <Icon name='person-outline' size={20} color={colors.text} />
+                    <Icon name='mail-outline' size={20} color={colors.text} />
                     <TextInput placeholder='Enter your email'
                     onChangeText={(val) => textInputChange(val)}
                     onEndEditing={(e) => handleValidUser(e.nativeEvent.text)}
@@ -202,8 +228,10 @@ const handleValidPassword = () => {
                     <Text style={{color: '#009387', marginTop: 15}}> Forgot Password  </Text>
                 </TouchableOpacity>
                 <View style={styles.button}>
+                    {/* () => {loginHandle} */}
                     <TouchableOpacity style={styles.signIn}
-                    onPress={() => {loginHandle(data.username, data.password)}}>
+                    onPress={loginHandle}> 
+                    {/* (data.username, data.password) */}
                     <LinearGradient
                     colors={['#08d4c4', '#01ab9d']}
                     style={styles.signIn}>

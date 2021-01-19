@@ -12,10 +12,15 @@ import {
   } from 'react-native';
   import LinearGradient from 'react-native-linear-gradient';
   import Icon from 'react-native-vector-icons/Ionicons';
+  import {useTheme} from 'react-native-paper';
   import * as Animatable from 'react-native-animatable';
+  import auth from '@react-native-firebase/auth';
+
 
 const SignUp = ({navigation}) => {
+    const {colors} = useTheme();
     const [data, setData] = useState({
+        name: '',
         email: '',
         password: '',
         confirm_password: '',
@@ -23,6 +28,13 @@ const SignUp = ({navigation}) => {
         secureTextEntry: true,
         confirm_secureTextEntry: true
     });
+
+    const nameInput = (val) => {
+        setData({
+            ...data,
+            name: val,
+        });
+    }
 
     const textInputChange = (val) => {
         if (val.length !== 0){
@@ -55,18 +67,35 @@ const SignUp = ({navigation}) => {
         })
     }
 
-    const handleConfirmPasswordChange = (val) => {
-        setData({
-            ...data,
-            confirm_password: val
+    const Register = () => {
+        auth().createUserWithEmailAndPassword(data.email, data.password)
+        .then((result) => {
+            console.log(result)
+            // history.push('/')
         })
-    };
-    const updateConfirmSecureTextEntry = () => {
-        setData({
-            ...data,
-            confirm_secureTextEntry: !data.confirm_secureTextEntry
-        })
+        .catch(function (error) {
+            // Handle Errors here.
+            var errorCode = error.code;
+            var errorMessage = error.message;
+            alert(errorMessage)
+            console.log(errorMessage)
+            // ...
+        });
+        console.log(data.email, 'password ===>>>', data.password )
     }
+
+    // const handleConfirmPasswordChange = (val) => {
+    //     setData({
+    //         ...data,
+    //         confirm_password: val
+    //     })
+    // };
+    // const updateConfirmSecureTextEntry = () => {
+    //     setData({
+    //         ...data,
+    //         confirm_secureTextEntry: !data.confirm_secureTextEntry
+    //     })
+    // }
     return(
         <>
         <View style={styles.container}>
@@ -75,20 +104,39 @@ const SignUp = ({navigation}) => {
                 <Text style={styles.text_header}> Register Now! </Text>
             </View>
 
-            <Animatable.View style={styles.footer}
+            <Animatable.View style={[styles.footer, {backgroundColor: colors.background}]}
                 animation='fadeInUpBig'
             >
                 <ScrollView>
-                <Text style={styles.text_footer}> Email </Text>
+                <Text style={[styles.text_footer, {color: colors.text}]}> Name </Text>
                 <View style={styles.action}>
-                    <Icon name='person-outline' size={20} color='#05375a' />
-                    <TextInput placeholder='Enter your email'
-                    onChangeText={(val) => textInputChange(val)}
-                    style={styles.textInput} 
+                    <Icon name='person-outline' size={20} color={colors.text}  />
+                    {/* color='#05375a' */}
+                    <TextInput placeholder='Enter your full name'
+                    onChangeText={(val) => nameInput(val)}
+                    style={[styles.textInput, {color: colors.text}]} 
                     autoCapitalize='none' />
                     {data.check_textInputChange ? 
                     <Animatable.View animation='bounceIn'>
-                    <Icon name='checkmark-circle-outline' 
+                    <Icon  name='checkmark-circle-outline' 
+                     color='green'
+                     size={20}
+                      />
+                    </Animatable.View>
+                     : null
+                    }
+                   
+                </View>
+                <Text style={[styles.text_footer, {color: colors.text}]}> Email </Text>
+                <View style={styles.action}>
+                    <Icon  name='mail-outline' size={20} color={colors.text} />
+                    <TextInput placeholder='Enter your email'
+                    onChangeText={(val) => textInputChange(val)}
+                    style={[styles.textInput, {color: colors.text}]} 
+                    autoCapitalize='none' />
+                    {data.check_textInputChange ? 
+                    <Animatable.View animation='bounceIn'>
+                    <Icon  name='checkmark-circle-outline' 
                      color='green'
                      size={20} />
                     </Animatable.View>
@@ -97,14 +145,14 @@ const SignUp = ({navigation}) => {
                    
                 </View>
 
-                <Text style={[styles.text_footer, 
+                <Text style={[styles.text_footer, {color: colors.text},
                { marginTop: 35}]}> Password </Text>
                 <View style={styles.action}>
-                    <Icon name='lock-closed-outline' size={20} color='#05375a' />
+                    <Icon name='lock-closed-outline' size={20} color={colors.text} />
                     <TextInput placeholder='Enter your password'
                     onChangeText={(val) => handlePasswordChange(val)}
                     secureTextEntry={data.secureTextEntry? true : false}
-                    style={styles.textInput} 
+                    style={[styles.textInput, {color: colors.text}]} 
                     autoCapitalize='none' />
                     <TouchableOpacity onPress={updateSecureTextEntry}>
                         {data.secureTextEntry?
@@ -121,7 +169,7 @@ const SignUp = ({navigation}) => {
                    
                 </View>
 
-                <Text style={[styles.text_footer, 
+                {/* <Text style={[styles.text_footer, 
                { marginTop: 35}]}> Confirm Password </Text>
                 <View style={styles.action}>
                     <Icon name='lock-closed-outline' size={20} color='#05375a' />
@@ -143,14 +191,16 @@ const SignUp = ({navigation}) => {
                    
                     </TouchableOpacity>
                    
-                </View>
+                </View> */}
 
                 <View style={styles.button}>
+                    <TouchableOpacity style={styles.SignUp} onPress={Register}>
                     <LinearGradient
                     colors={['#08d4c4', '#01ab9d']}
                     style={styles.SignUp}>
                         <Text style={[styles.textSign, {color: '#fff'}]}> Sign Up </Text>
                     </LinearGradient>
+                    </TouchableOpacity>
 
                     <TouchableOpacity onPress={() => navigation.navigate("SignIn")}
                     style={[styles.SignUp, {

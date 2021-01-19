@@ -4,12 +4,17 @@ import {DrawerContentScrollView, DrawerItem} from '@react-navigation/drawer';
 import {Avatar, Title, Caption, Paragraph, Drawer, Text, TouchableRipple, Switch, useTheme} from 'react-native-paper';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {AuthContext} from '../components/context';
+import auth from '@react-native-firebase/auth';
+
+
 
 
 export function DrawerContent(props){
     const paperTheme = useTheme();
     const {signOut, toggleTheme} = useContext(AuthContext);
     console.log(AuthContext)
+
+    
  
 
     // const toggleTheme = () => {
