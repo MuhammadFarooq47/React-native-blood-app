@@ -31,7 +31,8 @@ const SignIn = ({navigation}) => {
         isValidPassword: true,
     });
 
-    const {signIn} = useContext(AuthContext)
+    const {signIn} = useContext(AuthContext);
+    
 
     const textInputChange = (val) => {
         if (val.trim().length >= 4){
@@ -80,23 +81,30 @@ const SignIn = ({navigation}) => {
 // (userName, password) 
     const loginHandle = ()=> {
         //alert('hello')
-    auth().signInWithEmailAndPassword(data.username, data.password)
-  .then((result) => {
-    alert('login sucessfully');
-    signIn(data.username, data.password)
-    
-  })
-  .catch(error => {
-    if (error.code === 'auth/email-already-in-use') {
-      alert('That email address is already in use!');
-    }
+        {data.username === '' && data.password === ''? alert('Username or password field cannot be empty.'):
+        auth().signInWithEmailAndPassword(data.username, data.password)
+        .then((result) => {
+        alert('login sucessfully');
+        // Alert.alert('Wrong Input', 'Username or password field cannot be empty.', [
+        //     {text: 'Okay'}
+        // ]);
 
-    if (error.code === 'auth/invalid-email') {
-      alert('That email address is invalid!');
-    }
-
-    console.error(error);
-  });
+        // return;
+          signIn(data.username, data.password)
+          
+        })
+        .catch(error => {
+          if (error.code === 'auth/email-already-in-use') {
+            alert('That email address is already in use!');
+          }
+      
+          if (error.code === 'auth/invalid-email') {
+            alert('That email address is invalid!');
+          }
+      
+          alert(error);
+        }); };
+   
         // const foundUser = Users.filter(item => {
         //     return userName === item.username && password === item.password;
         // });
@@ -158,9 +166,9 @@ const handleValidPassword = () => {
     return(
         <>
         <View style={styles.container}>
-            <StatusBar backgroundColor='#009387' barStyle='light-content' />
+            <StatusBar backgroundColor='#ff0e2e' barStyle='light-content' />
             <View style={styles.header}>
-                <Text style={styles.text_header}> Welcome! </Text>
+                <Text style={styles.text_header}> Login </Text>
             </View>
 
             <Animatable.View style={[styles.footer, {backgroundColor: colors.background}]}
@@ -225,7 +233,7 @@ const handleValidPassword = () => {
                
 
                 <TouchableOpacity>
-                    <Text style={{color: '#009387', marginTop: 15}}> Forgot Password  </Text>
+                    <Text style={{color: '#05375a', marginTop: 15}}> Forgot Password ?  </Text>
                 </TouchableOpacity>
                 <View style={styles.button}>
                     {/* () => {loginHandle} */}
@@ -233,7 +241,7 @@ const handleValidPassword = () => {
                     onPress={loginHandle}> 
                     {/* (data.username, data.password) */}
                     <LinearGradient
-                    colors={['#08d4c4', '#01ab9d']}
+                    colors={['#ff2e4a', '#ff0627']}
                     style={styles.signIn}>
                         <Text style={[styles.textSign, {color: '#fff'}]}> Sign In </Text>
                     </LinearGradient>
@@ -241,13 +249,13 @@ const handleValidPassword = () => {
 
                     <TouchableOpacity onPress={() => navigation.navigate("SignUp")}
                     style={[styles.signIn, {
-                        borderColor: '#009387',
+                        borderColor: '#ff0e2e',
                         borderWidth: 1,
                         marginTop: 15
                     }]}
                     >
                         <Text style={[styles.textSign, {
-                            color: '#009387'
+                            color: '#ff0e2e'
                         }]}> Sign Up </Text>
                     </TouchableOpacity>
 
@@ -263,7 +271,7 @@ const handleValidPassword = () => {
 const styles = StyleSheet.create({
     container: {
       flex: 1, 
-      backgroundColor: '#009387'
+      backgroundColor: '#ff0e2e'
     },
     header: {
         flex: 1,
@@ -282,7 +290,11 @@ const styles = StyleSheet.create({
     text_header: {
         color: '#fff',
         fontWeight: 'bold',
-        fontSize: 30
+        fontSize: 40,
+        alignItems: 'center',
+        justifyContent: 'center',
+        textAlign: 'center',
+        
     },
     text_footer: {
         color: '#05375a',

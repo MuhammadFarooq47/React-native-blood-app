@@ -13,7 +13,7 @@ function HomeStaackScreen({navigation}) {
     
       <HomeStack.Navigator 
       screenOptions={{headerStyle:{
-        backgroundColor: '#2674f7',
+        backgroundColor: '#ff0e2e',
     },
     headerTintColor: '#fff',
     headerTitleStyle:{
@@ -21,10 +21,10 @@ function HomeStaackScreen({navigation}) {
     }
     }}>
         <HomeStack.Screen name="Home" component={Home} options={{
-            title:'OverView',
+            title:'Home',
             headerLeft: () => (
                 <Icon
-                name="menu-outline" size={30} color='#ffff' backgroundColor='#009387' onPress={() => navigation.openDrawer()}> </Icon> 
+                name="menu-outline" size={30} color='#ffff' backgroundColor='#ff0e2e' onPress={() => navigation.openDrawer()}> </Icon> 
             )
         }} />
       </HomeStack.Navigator>

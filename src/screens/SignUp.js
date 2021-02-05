@@ -68,6 +68,7 @@ const SignUp = ({navigation}) => {
     }
 
     const Register = () => {
+        {data.email === '' && data.password === ""? alert('Input field cannot be empty.') : 
         auth().createUserWithEmailAndPassword(data.email, data.password)
         .then((result) => {
             console.log(result)
@@ -83,6 +84,8 @@ const SignUp = ({navigation}) => {
         });
         console.log(data.email, 'password ===>>>', data.password )
     }
+    }
+       
 
     // const handleConfirmPasswordChange = (val) => {
     //     setData({
@@ -99,7 +102,7 @@ const SignUp = ({navigation}) => {
     return(
         <>
         <View style={styles.container}>
-            <StatusBar backgroundColor='#009387' barStyle='light-content' />
+            <StatusBar backgroundColor='#ff0e2e' barStyle='light-content' />
             <View style={styles.header}>
                 <Text style={styles.text_header}> Register Now! </Text>
             </View>
@@ -196,7 +199,7 @@ const SignUp = ({navigation}) => {
                 <View style={styles.button}>
                     <TouchableOpacity style={styles.SignUp} onPress={Register}>
                     <LinearGradient
-                    colors={['#08d4c4', '#01ab9d']}
+                    colors={['#ff2e4a', '#ff0627']}
                     style={styles.SignUp}>
                         <Text style={[styles.textSign, {color: '#fff'}]}> Sign Up </Text>
                     </LinearGradient>
@@ -204,13 +207,13 @@ const SignUp = ({navigation}) => {
 
                     <TouchableOpacity onPress={() => navigation.navigate("SignIn")}
                     style={[styles.SignUp, {
-                        borderColor: '#009387',
+                        borderColor: '#ff0e2e',
                         borderWidth: 1,
                         marginTop: 15
                     }]}
                     >
                         <Text style={[styles.textSign, {
-                            color: '#009387'
+                            color: '#ff0e2e'
                         }]}> Sign In </Text>
                     </TouchableOpacity>
 
@@ -227,7 +230,7 @@ const SignUp = ({navigation}) => {
 const styles = StyleSheet.create({
     container: {
       flex: 1, 
-      backgroundColor: '#009387'
+      backgroundColor: '#ff0e2e'
     },
     header: {
         flex: 1,
@@ -246,7 +249,8 @@ const styles = StyleSheet.create({
     text_header: {
         color: '#fff',
         fontWeight: 'bold',
-        fontSize: 30
+        fontSize: 35,
+        textAlign: 'center'
     },
     text_footer: {
         color: '#05375a',

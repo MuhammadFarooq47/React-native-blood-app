@@ -6,6 +6,7 @@ import ProfileScreen  from './ProfileScreen';
 import ExploreScreen from './ExploreScreen';
 import FavrioteScreen from './FavrioteScreen';
 import HomeStackScreen from './HomeStackScreen';
+import Home from './Home';
 
 
 const Tab = createMaterialBottomTabNavigator();
@@ -14,13 +15,14 @@ function MainTabScreen() {
   return (
     <Tab.Navigator
       initialRouteName="Home"
-      activeColor="#e91e63"
-      style={{ backgroundColor: 'tomato' }}
+      activeColor="#fff"
+      style={{ backgroundColor: 'ff0e2e' }}
     >
       <Tab.Screen
         name="Home"
         component={HomeStackScreen}
         options={{
+          tabBarColor: '#ff0e2e',
           tabBarLabel: 'Home',
           tabBarIcon: ({ color }) => (
             <Icon name="home-outline" color={color} size={26} />
@@ -32,9 +34,10 @@ function MainTabScreen() {
         name="Profile"
         component={ProfileScreen}
         options={{
-          tabBarLabel: 'Profile',
+          tabBarColor: '#ff0e2e',
+          tabBarLabel: 'Register',
           tabBarIcon: ({ color }) => (
-            <Icon name="person-outline" color={color} size={26} />
+            <Icon name="add-circle-outline" color={color} size={26} />
           ),
         }}
       />
@@ -43,22 +46,37 @@ function MainTabScreen() {
         name="Favriote"
         component={FavrioteScreen}
         options={{
-          tabBarLabel: 'Faviorate',
+          tabBarLabel: 'Search',
+          tabBarColor: '#ff0e2e',
           tabBarIcon: ({ color }) => (
-            <Icon name="heart-outline" color={color} size={26} />
+            <Icon name="search-outline" color={color} size={26} />
           ),
         }}
       />
+     
       <Tab.Screen
         name="Explore"
         component={ExploreScreen}
         options={{
-          tabBarLabel: 'Explore',
+          tabBarLabel: 'About',
+          tabBarColor: '#ff0e2e',
           tabBarIcon: ({ color }) => (
-            <Icon name="aperture-outline" color={color} size={26} />
+            <Icon name="people-circle-outline" color={color} size={26} />
           ),
         }}
       />
+       <Tab.Screen
+        name="Feed"
+        component={FeedScreen}
+        options={{
+          tabBarLabel: 'Connect',
+          tabBarColor: '#ff0e2e',
+          tabBarIcon: ({ color }) => (
+            <Icon name="call-outline" color={color} size={26} />
+          ),
+        }}
+      />
+    
     </Tab.Navigator>
   );
 }

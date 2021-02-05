@@ -17,13 +17,16 @@ import {
 } from 'react-native';
 import Navigation from './src/config/Navigation';
 import DrawerNavigator from './src/config/DrawerNavigator';
+import { Provider } from 'react-redux';
+import store from './src/redux';
 
 const App = () => {
+  //password bloodapp1234
   return (
-    <>
+    
+    <Provider store={store}>
     <DrawerNavigator />
-     {/* <Navigation />  */}
-    </>
+    </Provider>
   );
 };
 

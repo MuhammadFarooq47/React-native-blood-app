@@ -20,7 +20,7 @@ const SplashScreen = ({navigation}) => {
                 <Animatable.Image 
                 animation="bounceIn"
                 
-                source={require('../images/shopify-logo.png')} 
+                source={require('../images/heartlogo.png')} 
                 style={styles.logo} resizeMode='contain' />
             </View>
             <Animatable.View 
@@ -31,7 +31,7 @@ const SplashScreen = ({navigation}) => {
                 <View style={styles.button}>
                 <TouchableOpacity onPress={() => navigation.navigate('SignIn')}>
                     <LinearGradient 
-                    colors={['#08d4c4', '#01ab9b']}
+                    colors={['#ff2e4a', '#ff0627']}
                     style={styles.signIn}>
                         <Text style={styles.textSign}> Get Started </Text>
                         <Icon name='arrow-forward-outline' color='#ffff' size={20} />
@@ -47,12 +47,13 @@ const SplashScreen = ({navigation}) => {
 }
 
 const {height} = Dimensions.get("screen");
-const height_logo = height * 0.28;
+const height_logo = height * 0.35;
+const screenWidth = Dimensions.get('window').width
 
 const styles = StyleSheet.create({
     container: {
       flex: 1, 
-      backgroundColor: '#009387'
+      backgroundColor: '#ff0e2e'
     },
     header: {
         flex: 2,
@@ -68,7 +69,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: 30
     },
     logo: {
-        width: height_logo,
+        width: screenWidth,
         height: height_logo,
     },
     title: {

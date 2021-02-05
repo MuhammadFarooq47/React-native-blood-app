@@ -27,7 +27,7 @@ export function DrawerContent(props){
                     <View style={styles.userInfoSection}>
                         <View style={{flexDirection:'row', marginTop: 15}}>
                             <Avatar.Image 
-                            source={require('../images/profile-pic.jpg')} size={50} />
+                            source={require('../images/DP-2.png')} size={50} />
                             <View style={{marginLeft: 15, flexDirection:'column'}}>
                                 <Title style={styles.title}> Muhammad Farooq </Title>
                                 <Caption style={styles.caption}> @it's Farooq </Caption>
